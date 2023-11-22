@@ -17,8 +17,13 @@ class Representative < ApplicationRecord
         end
       end
 
-      rep = Representative.create!({ name: official.name, ocdid: ocdid_temp,
-          title: title_temp })
+      address = official.address.first
+      rep = Representative.create!(
+        name:  official.name, ocdid: ocdid_temp, title: title_temp,
+        street: address['line1'], city: address['city'], state: address['state'],
+        zip: address['zip'], party: official.party, photo: official.photoUrl
+      )
+
       reps.push(rep)
     end
 
