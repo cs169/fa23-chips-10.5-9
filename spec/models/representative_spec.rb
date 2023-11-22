@@ -25,7 +25,7 @@ RSpec.describe Representative, type: :model do
     end
 
     def expect_create_with_attributes(attributes)
-      expect(described_class).to have_received(:create!).with(attributes).exactly(api_response[:officials].size).times
+      expect(described_class).to have_received(:create!).with(attributes).exactly(1).times
     end
   end
 end
