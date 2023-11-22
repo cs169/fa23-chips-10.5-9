@@ -3,14 +3,14 @@
     .col-md-6.offset-md-3
       .card
         .card-header
-          %h3 Representative Details
+          %h3 Representative Details #{@id}
         .card-body
           %p
             %strong Name:
             = @rep_name
           %p
             %strong OCDID:
-            = @rep_ocdid
+            = @rep_name
           %p
             %strong Title:
             = @rep_title
