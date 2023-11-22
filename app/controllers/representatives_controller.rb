@@ -21,7 +21,7 @@ class RepresentativesController < ApplicationController
     # @rep_party = "rep party"
     # @rep_photo = "https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters/large/2800/Joey-Tribbiani.Friends.webp"
 
-    @representatives = Representative.find(@id)
+    @representative = Representative.find(@id)
 
     return unless @representative
 
