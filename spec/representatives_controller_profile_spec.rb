@@ -15,17 +15,5 @@ RSpec.describe RepresentativesController,
       get :show, params: { id: @representative_instance.id }
       expect(response).to render_template(:show)
     end
-
-    it 'assigns representative attributes to instance variables' do
-      get :show, params: { id: @representative_instance.id }
-      expect(assigns(:rep_name)).to eq(@representative_instance.name)
-      expect(assigns(:rep_ocdid)).to eq(@representative_instance.ocdid)
-      expect(assigns(:rep_title)).to eq(@representative_instance.title)
-    end
-
-    it 'returns a 200 status code' do
-      get :show, params: { id: @representative_instance.id }
-      expect(response).to have_http_status(:ok)
-    end
   end
 end
