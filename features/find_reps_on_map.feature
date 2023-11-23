@@ -9,12 +9,20 @@ Feature: display US state representatives when you click on a county within a st
     clicking on a county within that state
   When I click on that county I want to see a list of representatives for that county
 
-Background: 
-  I am on the ActionMap homepage
+Background: Given the following reps are in Polk County, OR 
+  | name                   | ocdid | title          |
+  | Bob Marley             | 1     | representative |
+  | Micheal Jackson        | 2     | senator        |
+  | Dwayne Johnson         | 3     | representative |
+
+  And I am on the homepage
+
 
 Scenario: find all represenatives in Polk County, Oregon
-  Given I follow Oregon 
-  And I follow 
+  When I click Oregon, OR
+  And I click Polk County
+  Then I should see the following representatives: Bob Marley, Micheal Jackson, Dwayne Johnson
+  
 
 
 
