@@ -1,0 +1,36 @@
+.container.mt-4
+    .row
+        .col-md-6.offset-md-3
+            .card
+                .card-header
+                    %h3 Representative Details #{@id}
+                    .card-body
+                        %p
+                            %strong Name:
+                            = @rep_name
+                        %p
+                            %strong OCDID:
+                            = @rep_ocdid
+                        %p
+                            %strong Title:
+                            = @rep_title
+                        %p
+                            %strong Street:
+                            = @rep_street
+                        %p
+                            %strong City:
+                            = @rep_city
+                        %p
+                            %strong State:
+                            = @rep_state
+                        %p
+                            %strong Zip:
+                            = @rep_zip
+                        %p
+                            %strong Party:
+                            = @rep_party
+                        %p
+                            %strong Photo:
+                            %img.img-fluid{ src: @rep_photo, alt: 'Representative Photo' }
+
+            = link_to 'Back to Search Representatives', representatives_path, class: 'btn btn-secondary mt-3'
