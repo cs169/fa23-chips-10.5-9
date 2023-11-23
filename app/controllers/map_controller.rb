@@ -24,7 +24,8 @@ class MapController < ApplicationController
     handle_county_not_found && return if @state.nil?
 
     @county_details = @state.counties.index_by(&:std_fips_code)
-    redirect_to search_representatives_path
+    address = @county.name + ", " + params[:state_symbol]
+    redirect_to search_representatives_path({from_state_map: true, address: address})
   end
 
   private
