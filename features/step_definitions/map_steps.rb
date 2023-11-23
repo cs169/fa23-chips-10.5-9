@@ -1,15 +1,19 @@
-Given /the following representatives are in "(.*)" County, "(.*)" / do |movies_table, county, state|
-  reps_table.hashes.each do |rep|
-    Representative.create!({ name: official.name, ocdid: ocdid_temp,
-          title: title_temp })
-  end
+# frozen_string_literal: true
+
+# Use 2 letter state symbols here
+
+Then /^I click the state of (.*)$/ do |state|
+  path = "/state/#{state}"
+  visit path
 end
 
-When /I click (.*)/ do |state|
-  
+Then /^I click the county of (.*) in (.*)$/ do |county, state|
+  path = "/search/#{county}%20County,%20#{state}?from_state_map=true"
+  visit path
+end
 
 Then /^I should see the following representatives: (.*)$/ do |representative_list|
-  movies = representative_list.split(/\s*,\s*/).each do |representative|
+  representative_list.split(/\s*,\s*/).each do |representative|
     expect(page).to have_content(representative)
   end
 end
