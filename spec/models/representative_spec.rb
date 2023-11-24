@@ -13,14 +13,8 @@ RSpec.describe Representative, type: :model do
       offices:   [OpenStruct.new({ name: 'Mayor', division_id: 'ocdid1', official_indices: [0] })]
     }
     # Everything is the same but changed ocdid, which should create a new representative
-    api_response_two = {
-      officials: [
-        OpenStruct.new({ name: 'Kevin Yoder',
-          address: [{ 'line1' => '215 Cannon HOB', 'city' => 'washington d.c.', 'state' => 'DC', 'zip' => '20515' }],
-          party: 'Republican', photoUrl: 'http://yoder.house.gov/images/user_images/headshot.jpg' })
-      ],
-      offices:   [OpenStruct.new({ name: 'Mayor', division_id: 'ocdid2', official_indices: [0] })]
-    }
+    api_response_two = api_response.merge(offices: [OpenStruct.new({ name: 'Mayor', division_id: 'ocdid2',
+official_indices: [0] })])
 
     before do
       allow(described_class).to receive(:find_or_create_by).and_call_original
