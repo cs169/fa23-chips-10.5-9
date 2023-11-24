@@ -7,26 +7,21 @@ class Representative < ApplicationRecord
     reps = []
 
     rep_info.officials.each_with_index do |official, index|
-      ocdid_temp = ''
-      title_temp = ''
-
-      rep_info.offices.each do |office|
-        if office.official_indices.include? index
-          title_temp = office.name
-          ocdid_temp = office.division_id
-        end
-      end
-
-      address = official.address.first
-      rep = Representative.create!(
-        name:  official.name, ocdid: ocdid_temp, title: title_temp,
-        street: address['line1'], city: address['city'], state: address['state'],
-        zip: address['zip'], party: official.party, photo: official.photoUrl
-      )
-
+      attributes = get_attributes(official, rep_info.offices, index)
+      rep = Representative.find_or_create_by(attributes)
       reps.push(rep)
     end
 
     reps
+  end
+
+  def self.get_attributes(official, offices, index)
+    office = offices.find { |potential_office| potential_office.official_indices.include? index }
+    ocdid = office.division_id ||= ''
+    title = office.name ||= ''
+    address = official.address.first ||= ''
+    { name: official.name, ocdid: ocdid, title: title, street: address['line1'],
+      city: address['city'], state: address['state'],
+      zip: address['zip'], party: official.party, photo: official.photoUrl }
   end
 end
