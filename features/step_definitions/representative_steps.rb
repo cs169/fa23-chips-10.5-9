@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given('the system already has a representative with the following attributes:') do |table|
   table.hashes.each do |row|
     Representative.create!(name: row['name'], ocdid: row['ocdid'], title: row['title'])
@@ -8,7 +10,7 @@ Given('new representative data given as:') do |table|
   @new_representative_data = table.hashes.first
 end
 
-When('I submit this data') do 
+When('I submit this data') do
   @initial_count = Representative.count
   Representative.find_or_create_by(@new_representative_data)
 end

@@ -15,8 +15,6 @@ class Representative < ApplicationRecord
     reps
   end
 
-  private
-
   def self.get_attributes(official, offices, index)
     office = offices.find { |potential_office| potential_office.official_indices.include? index }
     ocdid = office.division_id ||= ''
