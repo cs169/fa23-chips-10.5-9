@@ -21,6 +21,9 @@ class Representative < ApplicationRecord
     office = offices.find { |potential_office| potential_office.official_indices.include? index }
     ocdid = office.division_id ||= ''
     title = office.name ||= ''
-    { name: official.name, ocdid: ocdid, title: title }
+    address = official.address.first ||= ''
+    { name: official.name, ocdid: ocdid, title: title, street: address['line1'],
+      city: address['city'], state: address['state'],
+      zip: address['zip'], party: official.party, photo: official.photoUrl }
   end
 end

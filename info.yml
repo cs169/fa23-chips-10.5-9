@@ -1,0 +1,24 @@
+project:
+  name: 'CS169-fa23-09'
+  owner: 'fa23'
+  teamId: '09'
+  identities: {}
+  notifications:
+    email: 'stephanie_xyn@berkeley.edu'
+  members:
+    member1:
+      name: 'Stephanie'
+      surname: 'Xu' 
+      githubUsername: 'stephaniexyn'
+    member2:
+      name: 'Javi'
+      surname: 'Fernandez' 
+      githubUsername: 'czh0923'
+    member3:
+      name: 'Alejandro'
+      surname: 'Dominguez' 
+      githubUsername: 'alejodocmar'
+    member4:
+      name: 'Mike'
+      surname: 'Martinez' 
+      githubUsername: 'TrulyLeet'
