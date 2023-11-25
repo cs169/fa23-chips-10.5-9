@@ -2,15 +2,15 @@
 
 Given('Kevin Yoder exists in the database') do
   Representative.create!(
-    name:      'Kevin Yoder',
-    ocdid:     'ocdid1',
-    title:     'Mayor',
-    street:    '215 Cannon HOB',
-    city:      'Washington',
-    state:     'DC',
-    zip:       '20515',
-    party:     'Republican',
-    photo: 'http://yoder.house.gov/images/user_images/headshot.jpg'
+    name:   'Kevin Yoder',
+    ocdid:  'ocdid1',
+    title:  'Mayor',
+    street: '215 Cannon HOB',
+    city:   'Washington',
+    state:  'DC',
+    zip:    '20515',
+    party:  'Republican',
+    photo:  'http://yoder.house.gov/images/user_images/headshot.jpg'
   )
 end
 
