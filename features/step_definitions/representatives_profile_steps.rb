@@ -56,7 +56,7 @@ When('I search for Washington') do
 end
 
 When("I click on Patty Murray's link in the search results") do
-  find(:link, 'Patty Murray', wait: 10).click
+  click_link('Patty Murray') if page.has_link?('Patty Murray')
 end
 
 Then("I should see Patty Murray's name") do
