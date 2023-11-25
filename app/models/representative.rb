@@ -20,9 +20,9 @@ class Representative < ApplicationRecord
     ocdid = office.division_id ||= ''
     title = office.name ||= ''
     address = official.address.first ||= ''
-    photoUrl = official.photo_url ||= ''
+    photo_url = official.photo_url ||= ''
     { name: official.name, ocdid: ocdid, title: title, street: address.line1,
       city: address.city, state: address.state,
-      zip: address.zip, party: official.party, photo: photoUrl }
+      zip: address.zip, party: official.party, photo: photo_url }
   end
 end
