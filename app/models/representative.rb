@@ -17,12 +17,22 @@ class Representative < ApplicationRecord
 
   def self.get_attributes(official, offices, index)
     office = offices.find { |potential_office| potential_office.official_indices.include? index }
-    ocdid = office.division_id ||= ''
-    title = office.name ||= ''
-    address = official.address.first ||= ''
+    ocdid = office.division_id || ''
+    title = office.name || ''
+    street = get_address(official, :line1)
+    city = get_address(official, :city)
+    state = get_address(official, :state)
+    zip = get_address(official, :zip)
     photo_url = official.photo_url ||= ''
-    { name: official.name, ocdid: ocdid, title: title, street: address.line1,
-      city: address.city, state: address.state,
-      zip: address.zip, party: official.party, photo: photo_url }
+    { name: official.name, ocdid: ocdid, title: title, street: street,
+      city: city, state: state, zip: zip, party: official.party, photo: photo_url }
+  end
+
+  def self.get_address(official, key)
+    if official.address
+      official.address[0].send(key)
+    else
+      ''
+    end
   end
 end
