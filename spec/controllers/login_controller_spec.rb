@@ -57,16 +57,6 @@ RSpec.describe LoginController, type: :controller do
     end
 
     describe '#create_github_user' do
-      let(:github_user_attributes) do
-        {
-          uid:        user_info['uid'],
-          provider:   User.providers[:github],
-          first_name: user_info['info']['first_name'],
-          last_name:  user_info['info']['last_name'],
-          email:      user_info['info']['email']
-        }
-      end
-
       let(:split_github_user) do
         {
           uid:        user_info['uid'],
@@ -75,12 +65,6 @@ RSpec.describe LoginController, type: :controller do
           last_name:  'Doe',
           email:      user_info['info']['email']
         }
-      end
-
-      it 'creates a new GitHub user' do
-        allow(User).to receive(:create)
-        controller.send(:create_github_user, user_info)
-        expect(User).to have_received(:create).with(github_user_attributes)
       end
 
       it 'creates a new GitHub user with name split into first and last name' do

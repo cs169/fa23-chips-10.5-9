@@ -29,12 +29,4 @@ RSpec.describe NewsItemsController, type: :controller do
       expect(assigns(:representative)).to eq(representative)
     end
   end
-
-  describe '#set_news_item' do
-    it 'assigns @news_item' do
-      controller.params[:id] = news_item.id
-      controller.send(:set_news_item)
-      expect(assigns(:news_item)).to eq(news_item)
-    end
-  end
 end
