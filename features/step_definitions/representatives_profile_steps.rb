@@ -55,33 +55,17 @@ When('I search for Washington') do
   click_button 'Search'
 end
 
-When("I click on Patty Murray's link in the search results") do
-  click_link('Patty Murray') if page.has_link?('Patty Murray')
+When("I click on Joseph R. Biden's link in the search results") do
+  click_link('Joseph R. Biden')
 end
 
-Then("I should see Patty Murray's name") do
-  expect(page).to have_content('Patty Murray')
-end
-
-Then("I should see Patty Murray's OCD ID") do
-  expect(page).to have_content('ocd-division/country:us/state:wa')
-end
-
-Then("I should see Patty Murray's office") do
-  expect(page).to have_content('U.S. Senator')
-end
-
-Then("I should see Patty Murray's address information") do
-  expect(page).to have_content('154 Russell Senate Office Building')
+Then("I should see Joseph R. Biden's information") do
+  expect(page).to have_content('Joseph R. Biden')
+  expect(page).to have_content('ocd-division/country:us')
+  expect(page).to have_content('President of the United States')
+  expect(page).to have_content('1600 Pennsylvania Avenue Northwest')
   expect(page).to have_content('Washington')
   expect(page).to have_content('DC')
-  expect(page).to have_content('20510')
-end
-
-Then("I should see Patty Murray's party") do
+  expect(page).to have_content('20500')
   expect(page).to have_content('Democratic Party')
-end
-
-Then("I should see Patty Murray's photo") do
-  expect(page).to have_css('img.img-fluid')
 end

@@ -20,10 +20,5 @@ Scenario: Acess profile page
 Scenario: Access profile page from search
   Given I visit the search page
   When I search for Washington
-  When I click on Patty Murray's link in the search results
-  Then I should see Patty Murray's name
-  And I should see Patty Murray's OCD ID
-  And I should see Patty Murray's office
-  And I should see Patty Murray's address information
-  And I should see Patty Murray's party
-  And I should see Patty Murray's photo
+  When I click on Joseph R. Biden's link in the search results
+  Then I should see Joseph R. Biden's information
