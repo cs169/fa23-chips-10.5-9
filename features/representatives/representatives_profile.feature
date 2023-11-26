@@ -4,9 +4,6 @@ As a user interested in the politics
 I want to access information about a representative
 So that I can stay informed about the political climate
 
-Background:
-  Given Kevin Yoder exists in the database
-
 Scenario: Acess profile page
   Given Kevin Yoder exists in the database
   When I visit Kevin Yoder's profile
@@ -21,4 +18,10 @@ Scenario: Access profile page from search
   Given I visit the search page
   When I search for Washington
   When I click on Joseph R. Biden's link in the search results
+  Then I should see Joseph R. Biden's information
+
+Scenario: Access profile page from news item
+  Given Joseph R. Biden exists in the database
+  When I visit the news item page for Joseph R. Biden
+  When I click on Joseph R. Biden's name
   Then I should see Joseph R. Biden's information

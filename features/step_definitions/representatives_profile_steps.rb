@@ -69,3 +69,25 @@ Then("I should see Joseph R. Biden's information") do
   expect(page).to have_content('20500')
   expect(page).to have_content('Democratic Party')
 end
+
+Given('Joseph R. Biden exists in the database') do
+  Representative.create!(
+    name:   'Joseph R. Biden',
+    ocdid:  'ocd-division/country:us',
+    title:  'President of the United States',
+    street: '1600 Pennsylvania Avenue Northwest',
+    city:   'Washington',
+    state:  'DC',
+    zip:    '20500',
+    party:  'Democratic Party'
+  )
+end
+
+Given('I visit the news item page for Joseph R. Biden') do
+  rep = Representative.find_by(name: 'Joseph R. Biden')
+  visit "/representatives/#{rep.id}/news_items"
+end
+
+When("I click on Joseph R. Biden's name") do
+  click_link('Joseph R. Biden')
+end
