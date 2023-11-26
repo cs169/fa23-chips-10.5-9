@@ -47,4 +47,30 @@ RSpec.describe Representative, type: :model do
       expect(described_class).to have_received(:find_or_create_by).with(attributes).exactly(1).times
     end
   end
+
+  describe 'missing address fields' do
+    api_response = {
+      officials: [
+        OpenStruct.new({ name: 'John Doe',
+          party: 'Republican', photo_url: 'http://yoder.house.gov/images/user_images/headshot.jpg' })
+      ],
+      offices:   [OpenStruct.new({ name: 'Mayor', division_id: 'ocdid2', official_indices: [0] })]
+    }
+
+    before do
+      allow(described_class).to receive(:find_or_create_by).and_call_original
+      described_class.civic_api_to_representative_params(OpenStruct.new(api_response))
+    end
+
+    it 'creates representatives with correct information' do
+      expect_create_with_attributes(
+        name: 'John Doe', ocdid: 'ocdid2', title: 'Mayor', street: '', city: '',
+        state: '', zip: '', party: 'Republican', photo: 'http://yoder.house.gov/images/user_images/headshot.jpg'
+      )
+    end
+
+    def expect_create_with_attributes(attributes)
+      expect(described_class).to have_received(:find_or_create_by).with(attributes).exactly(1).times
+    end
+  end
 end
