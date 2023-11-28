@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :news_item do
     title { 'title' }
     link { 'link' }
+    issue { 'Free Speech' }
     description { 'description' }
     representative { association :representative }
   end
