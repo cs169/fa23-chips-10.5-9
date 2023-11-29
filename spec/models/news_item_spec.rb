@@ -17,4 +17,12 @@ RSpec.describe NewsItem, type: :model do
   it 'is invalid with an invalid issue' do
     expect(@invalid_news_item).not_to be_valid
   end
+
+  it 'sets the attribute correctly' do
+    expect(@valid_news_item.issue).to eq('Free Speech')
+  end
+
+  it 'has an accessible issue attribute' do
+    expect(@valid_news_item).to respond_to(:issue)
+  end
 end

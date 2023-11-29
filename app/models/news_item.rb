@@ -3,11 +3,12 @@
 class NewsItem < ApplicationRecord
   belongs_to :representative
   has_many :ratings, dependent: :delete_all
+  issues_list = ['Free Speech', 'Immigration', 'Terrorism', 'Social Security and Medicare',
+                 'Abortion', 'Student Loans', 'Gun Control', 'Unemployment', 'Climate Change',
+                 'Homelessness', 'Racism', 'Tax Reform', 'Net Neutrality', 'Religious Freedom',
+                 'Border Security', 'Minimum Wage', 'Equal Pay']
 
-  validates :issue, inclusion: { in: ['Free Speech', 'Immigration', 'Terrorism', 'Social Security and Medicare',
-                                      'Abortion', 'Student Loans', 'Gun Control', 'Unemployment', 'Climate Change',
-                                      'Homelessness', 'Racism', 'Tax Reform', 'Net Neutrality', 'Religious Freedom',
-                                      'Border Security', 'Minimum Wage', 'Equal Pay'] }
+  validates :issue, inclusion: { in: issues_list }
 
   def self.find_for(representative_id)
     NewsItem.find_by(
