@@ -3,6 +3,8 @@
 class MyNewsItemsController < SessionController
   before_action :set_representative
   before_action :set_representatives_list
+  before_action :set_issue_list
+  before_action :set_selected_rep_and_issue, only: %i[list]
   before_action :set_news_item, only: %i[edit update destroy]
 
   def new
@@ -36,6 +38,10 @@ class MyNewsItemsController < SessionController
                 notice: 'News was successfully destroyed.'
   end
 
+  def list
+    # action that handles the second page for Task 2.3
+  end
+
   private
 
   def set_representative
@@ -50,6 +56,20 @@ class MyNewsItemsController < SessionController
 
   def set_news_item
     @news_item = NewsItem.find(params[:id])
+  end
+
+  def set_issue_list
+    @issue_list = NewsItem.all.map { |n| [n.title, n.id] }
+  end
+
+  def set_selected_rep_and_issue
+    if params[:news_item].present?
+      @selected_representative = Representative.find_by(id: params[:news_item][:representative_id])&.name
+      @selected_issue = NewsItem.find_by(id: params[:news_item][:title])&.title
+    else
+      @selected_representative = nil
+      @selected_issue = nil
+    end
   end
 
   # Only allow a list of trusted parameters through.
