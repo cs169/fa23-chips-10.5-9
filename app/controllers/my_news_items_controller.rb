@@ -40,6 +40,16 @@ class MyNewsItemsController < SessionController
 
   def list
     # action that handles the second page for Task 2.3
+
+
+    # connect to Task 2.4
+    @top_articles = [
+      { title: 'Breaking News: Important Event', url: 'https://example.com/news1', description: 'A description of the breaking news.' },
+      { title: 'Tech Innovations: Latest Gadgets Revealed', url: 'https://example.com/news2', description: 'Explore the cutting-edge tech unveiled recently.' },
+      { title: 'Health and Wellness: Tips for a Healthy Lifestyle', url: 'https://example.com/news3', description: 'Discover ways to maintain a healthy lifestyle.' },
+      { title: 'Entertainment Buzz: Celebrity Gossip and Updates', url: 'https://example.com/news4', description: 'Get the latest scoop on your favorite celebrities.' },
+      { title: 'Sports Highlights: Exciting Moments from the Games', url: 'https://example.com/news5', description: 'Relive the thrilling moments from recent sports events.' }
+    ]
   end
 
   private

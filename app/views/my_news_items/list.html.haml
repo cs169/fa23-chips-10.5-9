@@ -1,10 +1,44 @@
-.row.mt-2
-    .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
-        %h1.text-center Edit news article
+.container.mt-4
+    .row
+        .col-md-6.offset-md-3
 
-    -# Display the selected Representative and Issue
-    .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
-        %p
-            Representative: #{@selected_representative}
-        %p
-            Issue: #{@selected_issue}
+            %h1.text-center Edit news article
+            %br
+
+            %p
+                Representative: #{@selected_representative}
+            %p
+                Issue: #{@selected_issue}
+            %br
+
+            %p
+                Select an article:
+
+            - @top_articles.each do |article|
+                .card.mb-3
+                    .card-header
+                        %label.radio-container
+                            = radio_button_tag :selected_article_id, article[:title]
+                            %span{ style: 'margin-left: 5px;' } 
+                            %strong= article[:title]
+                        .card-body
+                            %p
+                                %span{ style: 'margin-left: 20px;' } Link: #{article[:url]}
+                                %br
+                                %span{ style: 'margin-left: 20px;' } Description: #{article[:description]}
+                %br
+            
+            -# Dropdown for rating
+            .col-md-6.offset-md-3.text-center.mt-3
+            %label{ for: "rating" }
+                Rating:
+            = select_tag "rating", options_for_select([1, 2, 3, 4, 5], selected: 3), class: 'form-control'
+            %br
+
+            -# Save button
+            = submit_tag 'Save', class: 'btn btn-secondary mt-3'
+            
+            %span{ style: 'margin-left: 20px;' } 
+
+            -# "View More Articles?" link
+            = link_to 'View More Articles?', representative_list_my_news_item_path, class: 'btn btn-secondary mt-3'

@@ -13,7 +13,7 @@
                         All Representatives
             .table-responsive-md
                 %table.table.table-striped.table-hover#events
-                    %caption Table of News Items for #{@representative.name}
+                    %caption Table of News Items for #{link_to @representative.name, representative_path(@representative.id)}
                     %thead.thead-dark
                         %tr
                             %th #
