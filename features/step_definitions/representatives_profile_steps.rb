@@ -88,6 +88,6 @@ Given('I visit the news item page for Joseph R. Biden') do
   visit "/representatives/#{rep.id}/news_items"
 end
 
-When("I click on Joseph R. Biden's name") do
-  click_link('Joseph R. Biden')
-end
+# When("I click on Joseph R. Biden's name") do
+#   click_link('Joseph R. Biden')
+# end
