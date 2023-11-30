@@ -14,8 +14,7 @@ RSpec.describe 'Visit New News Item Form', type: :feature do
 
   it 'User visits the new news item form' do
     expect(page).to have_selector('form')
-    expect(page).to have_field('news_item[title]')
-    expect(page).to have_field('news_item[description]')
+    expect(page).to have_select('Representative')
     expect(page).to have_select('Issue')
   end
 end
