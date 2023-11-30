@@ -3,6 +3,8 @@
 # See: https://github.com/codecov/example-ruby
 
 require 'simplecov'
+require 'omniauth'
+
 SimpleCov.start 'rails' do
   add_filter 'lib'
 end
@@ -11,6 +13,17 @@ if ENV['CI']
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
+# OmniAuth test mode configuration
+OmniAuth.config.test_mode = true
+OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+                                                                     provider: 'google_oauth2',
+                                                                     uid:      '123',
+                                                                     info:     {
+                                                                       email:      'test@gmail.com',
+                                                                       first_name: 'Test',
+                                                                       last_name:  'User'
+                                                                     }
+                                                                   })
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
