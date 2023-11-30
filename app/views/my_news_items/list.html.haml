@@ -11,34 +11,41 @@
                 Issue: #{@selected_issue}
             %br
 
-            %p
-                Select an article:
+            = form_tag representative_new_my_news_item_path, method: :post do
+                %p
+                    Select an article:
 
-            - @top_articles.each do |article|
-                .card.mb-3
-                    .card-header
-                        %label.radio-container
-                            = radio_button_tag :selected_article_id, article[:title]
-                            %span{ style: 'margin-left: 5px;' } 
-                            %strong= article[:title]
+                - @top_articles.each do |article|
+                    .card.mb-3
+                        .card-header
+                            %label.radio-container
+                                = radio_button_tag 'news_item[title]', article[:title]
+                                = hidden_field_tag 'news_item[link]', article[:link]
+                                = hidden_field_tag 'news_item[description]', article[:description]
+                                = hidden_field_tag 'news_item[representative_id]', @representative.id
+                                = hidden_field_tag 'news_item[issue]', @selected_issue
+
+                                %span{ style: 'margin-left: 5px;' } 
+                                %strong= article[:title]
                         .card-body
                             %p
-                                %span{ style: 'margin-left: 20px;' } Link: #{article[:url]}
+                                %span{ style: 'margin-left: 20px;' } Link: #{article[:link]}
                                 %br
                                 %span{ style: 'margin-left: 20px;' } Description: #{article[:description]}
-                %br
-            
-            -# Dropdown for rating
-            .col-md-6.offset-md-3.text-center.mt-3
-            %label{ for: "rating" }
-                Rating:
-            = select_tag "rating", options_for_select([1, 2, 3, 4, 5], selected: 3), class: 'form-control'
-            %br
+                    %br
+                
+                -# Dropdown for ratings
+                .col-md-6.offset-md-3.text-center.mt-3
+                    %label{ for: "ratings" }
+                        Rating:
+                    = select_tag 'news_item[ratings][]', options_for_select([1, 2, 3, 4, 5].map { |rating| [rating] }, selected: [3]), class: 'form-control'
+                    %br
 
-            -# Save button
-            = submit_tag 'Save', class: 'btn btn-secondary mt-3'
-            
-            %span{ style: 'margin-left: 20px;' } 
+                -# Save button
+                = submit_tag 'Save', class: 'btn btn-secondary mt-3'
 
-            -# "View More Articles?" link
-            = link_to 'View More Articles?', representative_list_my_news_item_path, class: 'btn btn-secondary mt-3'
+                %span{ style: 'margin-left: 20px;' } 
+
+                -# "View More Articles?" link
+                = link_to 'View More Articles?', representative_list_my_news_item_path(@representative), class: 'btn btn-secondary mt-3'
+
