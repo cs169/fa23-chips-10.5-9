@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'news-api'
+
 class MyNewsItemsController < SessionController
   before_action :set_representative
   before_action :set_representatives_list
@@ -38,9 +40,40 @@ class MyNewsItemsController < SessionController
                 notice: 'News was successfully destroyed.'
   end
 
-  def list
-    # action that handles the second page for Task 2.3
-  end
+  def list 
+    initialize_api()
+    # a term prependended with + indicates that it MUST appear in the results
+    # using AND ensures articles of the represntative AND the issue appear
+    # REF: https://newsapi.org/docs/endpoints/everything
+    query_string = "+#{@selected_representative} AND +#{@selected_issue}"
+    # limits number of results per page to 5, default is to show 1 page
+    page_size = "5" 
+    # use .get_everything. REF: https://github.com/olegmikhnovich/News-API-ruby/blob/master/README.md
+    response = @news_api.get_everything(q: query_string, page_size: page_size)
+    p response
+    if response == []
+      # handle no news articles case 
+      render :list, error: 'No news articles found for this representative.'
+    else 
+      @news_items = Array.new 
+      num_items = 0
+      response.each do |article|
+        # enforce five item limit here
+        if num_items <= 5
+          title = article.title
+          description = article.description
+          link = article.url 
+          representative_id = params[:news_item][:representative_id]
+          news_item = NewsItem.new(title: title, description: description, link: link, issue: @selected_issue, representative_id: representative_id)
+          @news_items.push(news_item)
+          num_items += 1 
+        else 
+          next 
+        end 
+      end 
+
+    end 
+  end 
 
   private
 
@@ -77,4 +110,9 @@ class MyNewsItemsController < SessionController
     params.require(:news_item).permit(:news, :title, :description, :link, :representative_id,
                                       :issue)
   end
+
+  def initialize_api
+    api_key = Rails.application.credentials[:NEWS_API_KEY]
+    @news_api = News.new(api_key)
+  end 
 end

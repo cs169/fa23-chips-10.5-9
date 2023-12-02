@@ -3,7 +3,7 @@
 class NewsItemsController < ApplicationController
   before_action :set_representative
   before_action :set_news_item, only: %i[show]
-
+  
   def index
     @news_items = @representative.news_items
   end
