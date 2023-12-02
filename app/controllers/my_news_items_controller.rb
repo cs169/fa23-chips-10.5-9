@@ -16,6 +16,7 @@ class MyNewsItemsController < SessionController
   def edit; end
 
   def create
+    p news_item_params
     @news_item = NewsItem.new(news_item_params)
     if @news_item.save
       redirect_to representative_news_item_path(@representative, @news_item),
@@ -50,7 +51,6 @@ class MyNewsItemsController < SessionController
     page_size = "5" 
     # use .get_everything. REF: https://github.com/olegmikhnovich/News-API-ruby/blob/master/README.md
     response = @news_api.get_everything(q: query_string, page_size: page_size)
-    p response
     if response == []
       # handle no news articles case 
       render :list, error: 'No news articles found for this representative.'
@@ -95,9 +95,15 @@ class MyNewsItemsController < SessionController
     if params[:news_item].present?
       @selected_representative = Representative.find_by(id: params[:news_item][:representative_id])&.name
       @selected_issue = params[:news_item][:issue]
+
+      # Store in session
+      session[:selected_representative] = @selected_representative
+      session[:selected_issue] = @selected_issue
+
     else
-      @selected_representative = nil
-      @selected_issue = nil
+      # Retrieve from session
+      @selected_representative = session[:selected_representative]
+      @selected_issue = session[:selected_issue]
     end
   end
 
@@ -108,7 +114,7 @@ class MyNewsItemsController < SessionController
   # Only allow a list of trusted parameters through.
   def news_item_params
     params.require(:news_item).permit(:news, :title, :description, :link, :representative_id,
-                                      :issue)
+                                      :issue, :ratings)
   end
 
   def initialize_api

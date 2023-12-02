@@ -1,24 +1,46 @@
-.row.mt-2
-    .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
-        %h1.text-center List news articles
+.container.mt-4
+    .row
+        .col-md-6.offset-md-3
+            %h1.text-center Edit news article
+            %br
+            %p
+                Representative: #{@selected_representative}
+            %p
+                Issue: #{@selected_issue}
+            %br
 
-    -# Display the selected Representative and Issue
-    .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
-        %p
-            Representative: #{@selected_representative}
-        %p
-            Issue: #{@selected_issue}
-        %p 
-            Select an article:
-        .radio 
-            - @news_items.each do |item|
+            = form_tag representative_new_my_news_item_path, method: :post do
                 %p
-                %label 
-                    .offset-md-1
-                        %input{name: "news_item", type: "radio", value: "consumer"}
-                        %p Title: #{item.title}
-                        %p Link: #{link_to(item.link, item.link)}
-                        %p Description: #{item.description}
+                    Select an article:
+                - @news_items.each do |article|
+                    .card.mb-3
+                        .card-header
+                            %label.radio-container
+                                = radio_button_tag 'title', article.title
+                                = hidden_field_tag 'link', article.link
+                                = hidden_field_tag 'description', article.description
+                                = hidden_field_tag 'representative_id', article.representative_id
+                                = hidden_field_tag 'issue', @selected_issue
+                                %strong= article.title
+                        .card-body
+                            %p
+                                Link: #{link_to(article.link, article.link)}
+                                %br
+                                Description: #{article.description}
+                    %br
 
+                -# Dropdown for ratings
+                %label{ for: 'ratings' }
+                    Rating:
+                = select_tag 'news_item[ratings][]',
+                        options_for_select([1, 2, 3, 4, 5].map { |rating| [rating] }, selected: [3]),
+                        class: 'form-control'
+                %br
 
+                -# Save button
+                = submit_tag 'Save', class: 'btn btn-secondary mt-3'
 
+                -# "View More Articles?" link
+                = link_to 'View More Articles?',
+                        representative_list_my_news_item_path(@representative),
+                        class: 'btn btn-secondary mt-3'
