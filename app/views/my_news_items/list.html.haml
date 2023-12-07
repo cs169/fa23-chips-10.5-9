@@ -4,7 +4,7 @@
             %h1.text-center Edit news article
             %br
             %p
-                Representative: #{@selected_representative}
+                Representative: #{@selected_representative.name}
             %p
                 Issue: #{@selected_issue}
             %br
@@ -12,21 +12,21 @@
             = form_tag representative_new_my_news_item_path, method: :post do
                 %p
                     Select an article:
-                - @top_articles.each do |article|
+                - @news_items.each do |article|
                     .card.mb-3
                         .card-header
                             %label.radio-container
-                                = radio_button_tag 'news_item[title]', article[:title]
-                                = hidden_field_tag 'news_item[link]', article[:link]
-                                = hidden_field_tag 'news_item[description]', article[:description]
-                                = hidden_field_tag 'news_item[representative_id]', @representative.id
-                                = hidden_field_tag 'news_item[issue]', @selected_issue
-                                %strong= article[:title]
+                                = radio_button_tag 'title', article.title
+                                = hidden_field_tag 'link', article.link
+                                = hidden_field_tag 'description', article.description
+                                = hidden_field_tag 'news_item[representative_id]', article.representative_id
+                                = hidden_field_tag 'issue', @selected_issue
+                                %strong= article.title
                         .card-body
                             %p
-                                Link: #{article[:link]}
+                                Link: #{link_to(article.link, article.link)}
                                 %br
-                                Description: #{article[:description]}
+                                Description: #{article.description}
                     %br
 
                 -# Dropdown for ratings
@@ -42,5 +42,5 @@
 
                 -# "View More Articles?" link
                 = link_to 'View More Articles?',
-                        representative_list_my_news_item_path(@representative),
+                        representative_list_my_news_item_path(@selected_representative),
                         class: 'btn btn-secondary mt-3'
