@@ -31,7 +31,7 @@ gem 'haml-rails'
 # Google Civic Client
 gem 'google-api-client', '~> 0.34'
 
-#News API Ruby Client 
+# News API Ruby Client
 gem 'news-api', '~> 0.2.x'
 
 # Use ActiveStorage variant
